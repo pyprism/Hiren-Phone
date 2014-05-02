@@ -40,6 +40,7 @@ def main():
                     phone = re.search(r'[^VOICE:][\d\*\+\#]+' , i)
                 else:pass
                 counter = counter + 1
+            fileContent.close()
             if not os.path.exists('../sample/finalContact/'):
                 os.mkdir('../sample/finalContact/')
                 os.chdir("../sample/finalContact/")
