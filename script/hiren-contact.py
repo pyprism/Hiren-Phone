@@ -1,4 +1,5 @@
 #Date : May 1 , 2014 . Hiren is Missing for 1 month
+#Just for contacts
 #!/usr/bin/env python
 
 
@@ -21,8 +22,9 @@ def Database(name,number):
     else:
         collection.update({
             "_id" : duplicate["_id"],
-            'Another Name' : '' + ', ' + name
+            'Another Name' : duplicate['Another Name'] + ', ' + name
         })
+        print str(name) + ' is updated'
 
 
 def main():
@@ -33,9 +35,9 @@ def main():
             fileContent = open('../sample/' + i )
             for i in fileContent.readlines():
                 if counter == 2:
-                    name = re.search(r'[^N:][\d\w\s?]+' , i)
+                    name = re.search(r'[^N:][\d\w\s]+' , i)
                 elif counter == 3:
-                    phone = re.search(r'[^VOICE:][\d\*?\\#?]+' , i)
+                    phone = re.search(r'[^VOICE:][\d\*\+\#]+' , i)
                 else:pass
                 counter = counter + 1
             if not os.path.exists('../sample/finalContact/'):
@@ -44,7 +46,7 @@ def main():
             else:
                 os.chdir("../sample/finalContact/")
             shutil.move('../sample/' + i , '../sample/finalContact/' + i)
-            Database(name,phone)
+            Database(name.group(),phone.group())
 
 
 
