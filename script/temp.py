@@ -1,8 +1,8 @@
 __author__ = 'prism'
 
-import re
+import re , os
 
-f = open('../sample/Afroza.vcf')
+f = open('../sample/0724 Mithila.vmg')
 
 #regexp = re.compile(r'(?P<Phone>VOICE:[\d]+)?' r'(?P<Name>[^\w]N:[\d\s\w$].+)?')
 #matchObj = re.match( r'\+\d+', f.read())
@@ -15,17 +15,8 @@ f = open('../sample/Afroza.vcf')
 
 
 
-counter = 0
-for i in f.readlines():
-    if counter == 2:
-        name = re.search(r'[^N:][\d\w]+' , i)
-    elif counter == 3:
-        phone = re.search(r'[^VOICE:][\d]+' , i)
-    else:
-        pass
-    counter = counter + 1
-print name.group()
-print phone.group()
+
+#print f.read().decode('utf-16')
 
 #name = re.compile(r'[^\w]N:[\d\s\w].+')
 #name = re.compile(r'N')
@@ -33,3 +24,20 @@ print phone.group()
 # x = re.search( r'[^N:][\d\w]+' , 'N:Afroza')
 #
 # print x.group(0)
+
+number = re.search(r'[TEL:+]\d+\n' , f.read().decode('utf-16'))
+print number.group()
+
+
+
+#date = re.findall(r'[Date]:[\d\.]+' , f.read().decode('utf-16'))
+
+#print date[0].lstrip('e:')
+
+# regexp = re.compile(r'(?P<number>[TEL:+]\d+\n)')
+# m = regexp.search(f.read().decode('utf-16'))
+#
+# print m.group('number')
+# print m.group('date')
+f.close()
+

@@ -22,7 +22,7 @@ def Database(name,number):
     else:
         collection.update({
             "_id" : duplicate["_id"],
-            'Another Name' : duplicate['Another Name'] + ', ' + name
+            'Another Name' : duplicate['Another Name'] + '  ' + name
         })
         print str(name) + ' is updated'
 
@@ -41,12 +41,12 @@ def main():
                 else:pass
                 counter = counter + 1
             fileContent.close()
-            if not os.path.exists('../sample/finalContact/'):
-                os.mkdir('../sample/finalContact/')
-                os.chdir("../sample/finalContact/")
+            if not os.path.exists('../sample/finishedContact/'):
+                os.mkdir('../sample/finishedContact/')
+                os.chdir("../sample/finishedContact/")
             else:
-                os.chdir("../sample/finalContact/")
-            shutil.move('../sample/' + i , '../sample/finalContact/' + i)
+                os.chdir("../sample/finishedContact/")
+            shutil.move('../sample/' + i , '../sample/finishedContact/' + i)
             Database(name.group(),phone.group())
 
 
