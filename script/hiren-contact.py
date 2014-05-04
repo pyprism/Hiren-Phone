@@ -11,20 +11,20 @@ collection = db['Contacts']
 
 
 def database(name,number):
-    duplicate = collection.find_one({'Number' : number})
+    duplicate = collection.find_one({'Number': number})
     if not duplicate:
-        data = { 'Name' : name ,
-             'Number' : number ,
-             'Another Name' : '' ,
-             'Time' : time.strftime('%d-%m-%Y' )}
+        data = { 'Name': name,
+            'Number': number,
+             'Another Name': '',
+             'Time': time.strftime('%d-%m-%Y')}
         collection.insert(data)
         print str(name).upper() + ' Is Added'
     elif duplicate['Name'] == name:
         print str(name) + ' is already exist'
     else:
         collection.update({
-            "_id" : duplicate["_id"],
-            'Another Name' : duplicate['Another Name'] + '  ' + name
+            "_id": duplicate["_id"],
+            'Another Name': duplicate['Another Name'] + '  ' + name
         })
         print str(name) + ' is updated'
 
@@ -34,12 +34,12 @@ def main():
     for i in filelist:
         counter = 0
         if i.endswith('.vcf'):
-            fileContent = open('../sample/' + i )
+            fileContent = open('../sample/' + i)
             for i in fileContent.readlines():
                 if counter == 2:
-                    name = re.search(r'[^N:][\d\w\s]+' , i)
+                    name = re.search(r'[^N:][\d\w\s]+', i)
                 elif counter == 3:
-                    phone = re.search(r'[^VOICE:][\d\*\+\#]+' , i)
+                    phone = re.search(r'[^VOICE:][\d\*\+\#]+', i)
                 else:pass
                 counter = counter + 1
             fileContent.close()
@@ -48,10 +48,8 @@ def main():
                 os.chdir("../sample/finishedContact/")
             else:
                 os.chdir("../sample/finishedContact/")
-            shutil.move('../sample/' + i , '../sample/finishedContact/' + i)
-            database(name.group(),phone.group())
-
-
+            shutil.move('../sample/' + i, '../sample/finishedContact/' + i)
+            database(name.group(), phone.group())
 
 
 if __name__ == '__main__':
