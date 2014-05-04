@@ -45,9 +45,6 @@ def main():
             fileContent.close()
             if not os.path.exists('../sample/finishedContact/'):
                 os.mkdir('../sample/finishedContact/')
-                os.chdir("../sample/finishedContact/")
-            else:
-                os.chdir("../sample/finishedContact/")
             shutil.move('../sample/' + i, '../sample/finishedContact/' + i)
             database(name.group(), phone.group())
 
