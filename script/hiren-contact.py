@@ -5,10 +5,12 @@
 
 import pymongo , re ,os,shutil ,time
 
-def Database(name,number):
-    client = pymongo.MongoClient()
-    db = client['Hiren-Phone']
-    collection = db['Contacts']
+client = pymongo.MongoClient()
+db = client['Hiren-Phone']
+collection = db['Contacts']
+
+
+def database(name,number):
     duplicate = collection.find_one({'Number' : number})
     if not duplicate:
         data = { 'Name' : name ,
@@ -47,7 +49,7 @@ def main():
             else:
                 os.chdir("../sample/finishedContact/")
             shutil.move('../sample/' + i , '../sample/finishedContact/' + i)
-            Database(name.group(),phone.group())
+            database(name.group(),phone.group())
 
 
 
