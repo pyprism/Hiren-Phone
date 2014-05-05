@@ -52,7 +52,7 @@ def main():
             #Move sorted files to different folder
             if not os.path.exists('../sample/finishedMessage/'):
                 os.mkdir('../sample/finishedMessage/')
-            shutil.move('../../sample/' + i, '../../sample/finishedMessage/' + i)
+            shutil.move('../sample/' + i, '../sample/finishedMessage/' + i)
             filecontent.close()
             database(number.group()[:-1], i, message, date.group().lstrip('e:'), timer.group(), boxtype)
 
