@@ -10,15 +10,6 @@ db = client['Hiren-Phone']
 collection = db['Message']
 
 
-def filemove(name,location,moveornot):
-    if not os.path.exists('../sample/finishedContact/'):
-        os.mkdir('../sample/finishedContact/')
-    if not os.path.exists('../sample/duplicateContact/'):
-        os.mkdir('../sample/duplicateContact/')
-    if not moveornot:
-        shutil.move('../sample/' + name, '../sample/finishedContact/' + name)
-
-
 def database(number, filename, message, date, timer, boxtype):
     duplicate = collection.find_one({'Number': number, 'Message': message, 'Date': date, 'Time': timer})
     if not duplicate:
@@ -61,7 +52,7 @@ def main():
             #Move sorted files to different folder
             if not os.path.exists('../sample/finishedMessage/'):
                 os.mkdir('../sample/finishedMessage/')
-            shutil.move('../sample/' + i, '../sample/finishedMessage/' + i)
+            shutil.move('../../sample/' + i, '../../sample/finishedMessage/' + i)
             filecontent.close()
             database(number.group()[:-1], i, message, date.group().lstrip('e:'), timer.group(), boxtype)
 
