@@ -10,15 +10,6 @@ db = client['Hiren-Phone']
 collection = db['Contacts']
 
 
-def filemove(name,location,moveornot):
-    if not os.path.exists('../sample/finishedContact/'):
-        os.mkdir('../sample/finishedContact/')
-    if not os.path.exists('../sample/duplicateContact/'):
-        os.mkdir('../sample/duplicateContact/')
-    if not moveornot:
-        shutil.move('../sample/' + name, '../sample/finishedContact/' + name)
-
-
 def database(name, number):
     duplicate = collection.find_one({'Number': number})
     if not duplicate:
@@ -56,6 +47,10 @@ def main():
                     phone = re.search(r'[^VOICE:][\d\*\+\#]+', lines)
                 counter = counter + 1
             fileContent.close()
+            if not os.path.exists('../sample/finishedContact/'):
+                os.mkdir('../sample/finishedContact/')
+            if not moveornot:
+                shutil.move('../sample/' + i, '../sample/finishedContact/' + i)
             database(name.group()[:-2], phone.group())
 
 
