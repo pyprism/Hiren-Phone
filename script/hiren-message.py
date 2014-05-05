@@ -10,6 +10,15 @@ db = client['Hiren-Phone']
 collection = db['Message']
 
 
+def filemove(name,location,moveornot):
+    if not os.path.exists('../sample/finishedContact/'):
+        os.mkdir('../sample/finishedContact/')
+    if not os.path.exists('../sample/duplicateContact/'):
+        os.mkdir('../sample/duplicateContact/')
+    if not moveornot:
+        shutil.move('../sample/' + name, '../sample/finishedContact/' + name)
+
+
 def database(number, filename, message, date, timer, boxtype):
     duplicate = collection.find_one({'Number': number, 'Message': message, 'Date': date, 'Time': timer})
     if not duplicate:
@@ -19,7 +28,7 @@ def database(number, filename, message, date, timer, boxtype):
                 'Time': timer,
                 'Box Type': boxtype,
                 'File Name': filename}
-        collection.insert(data)
+        collection.insert(data, safe=True)
         print 'Data Inserted ;) Hiren ! '
     else:
         print 'Duplicate message'
