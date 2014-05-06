@@ -40,20 +40,35 @@ def main():
             message = tempmesg.group().strip('END:VBODY\nEND:VENV\nEND:VENV\nEND:VMSG')[9:]
             filecontent.seek(0, 0)
             #Check message box type
-            boxA = re.search(r'DRAFT', filecontent.read().decode('utf-16'))
-            if boxA:
-                boxtype = 'Draft'
-            filecontent.seek(0, 0)
-            if re.search(r'DELIVER', filecontent.read().decode('utf-16')):
-                boxtype = 'Inbox'
-            filecontent.seek(0, 0)
-            if re.search(r'SUBMIT', filecontent.read().decode('utf-16')):
-                boxtype = 'Sent'
+            #For version 2.1
+            if re.search(r'VERSION:2.1', filecontent.read().decode('utf-16')):
+                filecontent.seek(0, 0)
+                if re.search(r'DRAFT', filecontent.read().decode('utf-16')):
+                    boxtype = 'Draft'
+                filecontent.seek(0, 0)
+                if re.search(r'INBOX', filecontent.read().decode('utf-16')):
+                    boxtype = 'Inbox'
+                filecontent.seek(0, 0)
+                if re.search(r'SENT', filecontent.read().decode('utf-16')):
+                    boxtype = 'Sent'
+                filecontent.seek(0, 0)
+
+            #For version 3.0
+            if re.search(r'VERSION:3.0', filecontent.read().decode('utf-16')):
+                if re.search(r'DRAFT', filecontent.read().decode('utf-16')):
+                    boxtype = 'Draft'
+                filecontent.seek(0, 0)
+                if re.search(r'DELIVER', filecontent.read().decode('utf-16')):
+                    boxtype = 'Inbox'
+                filecontent.seek(0, 0)
+                if re.search(r'SUBMIT', filecontent.read().decode('utf-16')):
+                    boxtype = 'Sent'
             #Move sorted files to different folder
             if not os.path.exists('../sample/finishedMessage/'):
                 os.mkdir('../sample/finishedMessage/')
-            shutil.move('../sample/' + i, '../sample/finishedMessage/' + i)
+            #print i
             filecontent.close()
+            shutil.move('../sample/' + i, '../sample/finishedMessage/' + i)
             database(number.group()[:-1], i, message, date.group().lstrip('e:'), timer.group(), boxtype)
 
 if __name__ == '__main__':
