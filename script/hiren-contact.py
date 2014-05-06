@@ -23,8 +23,8 @@ def database(name, number):
         print str(name) + ' is already exist'
     else:
         collection.update({"_id": duplicate["_id"]},
-                          {'Another Name': duplicate['Another Name'] + '  ' + name},
-                          upsert=False
+                          {"$set": {'Another Name': duplicate['Another Name'] + '  ' + name}},
+                          safe=True
         )
         print str(name) + ' is updated'
 
@@ -51,7 +51,8 @@ def main():
                 os.mkdir('../sample/finishedContact/')
             if not moveornot:
                 shutil.move('../sample/' + i, '../sample/finishedContact/' + i)
-            database(name.group()[:-2], phone.group())
+            #if not name.group() is None or phone.group() is None:
+                database(name.group()[:-2], phone.group())
 
 
 if __name__ == '__main__':
