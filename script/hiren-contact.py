@@ -33,26 +33,26 @@ def main():
     filelist = os.listdir('../sample/')
     for i in filelist:
         counter = 0
-        moveornot = ""
         if i.endswith('.vcf'):
             fileContent = open('../sample/' + i)
+            number = re.findall(r'[^VOICE:][\d\*\+\#]+', fileContent.read())
+            fileContent.seek(0, 0)
             for lines in fileContent.readlines():
                 if counter == 2:
-                    if lines.startswith('N;ENCODING'):
-                        print 'Special Case detected ' + i  # N;ENCODING=QUOTED-PRINTABLE:
-                        moveornot = True
+                    if lines.startswith('N;ENCODING'):  # N;ENCODING=QUOTED-PRINTABLE:
+                        name = lines[28:-1]
+                        database(name, number[-1])
                     else:
                         name = re.search(r'[^N:][\d\w\s]+', lines)
-                elif counter == 3:
-                    phone = re.search(r'[^VOICE:][\d\*\+\#]+', lines)
+                        #print i
+                        database(name.group()[:-2], number[-1])
                 counter = counter + 1
             fileContent.close()
             if not os.path.exists('../sample/finishedContact/'):
                 os.mkdir('../sample/finishedContact/')
-            if not moveornot:
-                shutil.move('../sample/' + i, '../sample/finishedContact/' + i)
+            shutil.move('../sample/' + i, '../sample/finishedContact/' + i)
             #if not name.group() is None or phone.group() is None:
-                database(name.group()[:-2], phone.group())
+
 
 
 if __name__ == '__main__':
