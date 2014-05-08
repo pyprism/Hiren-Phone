@@ -4,5 +4,8 @@ lib/
 local/
 .idea/
 node_modules
-sample/
+sample/*.vmg
+sample/*.vcf
 *.pyc
+*.vmg
+*.vcf
