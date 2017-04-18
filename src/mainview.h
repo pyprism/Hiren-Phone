@@ -2,6 +2,7 @@
 #define MAINVIEW_H
 
 #include <QMainWindow>
+#include <newcontact.h>
 
 namespace Ui {
 class MainView;

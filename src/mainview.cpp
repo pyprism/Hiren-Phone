@@ -15,10 +15,12 @@ MainView::~MainView()
 
 void MainView::on_saveBtn_clicked()
 {
-
+    NewContact *Contact = new NewContact(this);
+    Contact->show();
 }
 
 void MainView::on_searchBtn_clicked()
 {
     this->hide ();
+
 }
