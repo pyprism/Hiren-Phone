@@ -27,18 +27,6 @@ void NewContact::setName(const QString &value)
 
 }
 
-QString NewContact::getNumber() const
-{
-    return number;
-}
-
-void NewContact::setNumber(const QString &value)
-{
-    if (number != value ) {
-        number = value;
-        emit numberChanged ();
-    }
-}
 
 QString NewContact::getNote() const
 {
@@ -54,16 +42,17 @@ void NewContact::setNote(const QString &value)
 
 }
 
-QStringList NewContact::getPhonebook() const
+QStringList NewContact::getPhoneNumbers() const
 {
-    return phonebook;
+    return phoneNumbers;
 }
 
-void NewContact::setPhonebook(const QStringList &value)
+void NewContact::setPhoneNumbers(const QStringList &value)
 {
-    if (phonebook != value){
-        phonebook = value;
-        emit phonebookChanged ();
+    if ( phoneNumbers != value) {
+        phoneNumbers = value;
+        emit phoneNumbersChanged ();
     }
 
 }
+
