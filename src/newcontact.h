@@ -13,6 +13,10 @@ class NewContact : public QDialog
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(QString note READ note WRITE setnote NOTIFY noteChanged)
+    Q_PROPERTY(QStringList phoneNumbers READ phoneNumbers WRITE setPhoneNumbers NOTIFY phoneNumbersChanged)
+
 public:
     explicit NewContact(QWidget *parent = 0);
     ~NewContact();
@@ -20,28 +24,23 @@ public:
     QString getName() const;
     void setName(const QString &value);
 
-    QString getNumber() const;
-    void setNumber(const QString &value);
-
     QString getNote() const;
     void setNote(const QString &value);
 
-    QStringList getPhonebook() const;
-    void setPhonebook(const QStringList &value);
+    QStringList getPhoneNumbers() const;
+    void setPhoneNumbers(const QStringList &value);
 
 signals:
     void nameChanged();
-    void numberChanged();
     void noteChanged();
-    void phonebookChanged();
+    void phoneNumbersChanged();
 
 private:
     Ui::NewContact *ui;
 
     QString name;
-    QString number;
     QString note;
-    QStringList phonebook;
+    QStringList phoneNumbers;
 };
 
 #endif // NEWCONTACT_H
